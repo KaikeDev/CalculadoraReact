@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./global.css";
+import {useState} from "react";
 
 function App() {
+
+  const [equation, setEquation] = useState("")
+  const btn = [ "{}", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", ".", "0","."]
+  const clicar = (ev) => {
+   setEquation(equation + ev.target.textContent)
+  }
+  
+  const limpar = (lim) => {
+    setEquation("0")
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="page">
+      <div className="calc">
+        <div id="calc_result"> {equation}</div>
+        <div id="calc_barra"> </div>
+        <div id="calc_keyboard">
+          <button className="calc_button" onClick={limpar}>C</button>
+          
+          {btn.map((txt) => <button className="calc_button" onClick={clicar}>{txt} </button>)  }
+
+          <button className="calc_button" onClick={()=> setEquation(eval(equation)) }>=</button>
+        </div>
+      </div>
     </div>
   );
 }
